@@ -760,10 +760,31 @@ cancelBtn.addEventListener('click', function(){
 
 
 
-
+let usersNote = new Object();
+let notes = new Object();
 
 const notionBtn = document.querySelector('.notions__add');
+const notionList = document.querySelector('.notions__list');
+const note = document.querySelector('.notions__note');
+const noteName = document.querySelector('.notions__noteName');
+const noteImg = document.querySelector('.notions__noteRewriteHide');
+
+
+note.onmouseover = note.onmouseout = HideNoteImg;
+ function HideNoteImg(){
+  noteImg.classList.toggle('notions__noteRewriteHide')
+  noteImg.classList.toggle('notions__noteRewrite')
+}
+noteImg.addEventListener('click', function(event){
+  noteName.removeAttribute('readonly');
+  noteName.focus();
+})
+
+if(!noteName.focus()){
+  noteName.setAttribute('readonly');
+}
 
 notionBtn.addEventListener('clicl', function(event){
+  const note = document.createElement('div');
   
 })

@@ -1211,3 +1211,49 @@ h2 {
   margin-right: 10px;
   padding: 0;
 }
+
+.notions__list{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 10px;
+  padding-top: 10px;
+}
+.notions__note{
+  display: flex;
+  align-items: center;
+}
+.notions__noteName{
+  border: none;
+  &:focus{
+    outline: none;
+  }
+  padding: 0;
+  margin: 0;
+  max-height: 20px;
+}
+.notions__noteRewriteHide{
+  animation: noteImgHide 1 cubic-bezier(0,-0.09, 0, 0.98);
+  display: none;
+  opacity: 0;
+}
+@keyframes noteImgHide {
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
+.notions__noteRewrite{
+  animation: noteImgShow 1 cubic-bezier(0,-0.09, 0, 0.98);
+  display: block;
+  opacity: 1;
+}
+@keyframes noteImgShow {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
