@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/scss/bootstrap.min.css" rel="stylesheet">
+    <title>To do list</title>
+  </head>
+
+  <body>
+    <main class="main">
+      <section class="main__sidenav">
+        <div class="main__head">
+          <div class="account">
+            <div class="account__img"></div>
+            <div class="account__name">Вход</div>
+            <button class="account__down">
+              <img src="/public/images/account__down-img.svg" alt="arrow">
+            </button>
+          </div>
+          <div class="accountPage accountPage_hide">
+            <button class = 'account__enter'>Войти</button>
+            <button class = 'account__enter account__reg'>Регистрация</button>
+          </div>
+          <div class="main__btns">
+            <button class="main__notif">
+              <img src="/public/images/main__notif-img.svg" alt="Notification" class = 'main__btnsIMG'>
+            </button>
+
+            <button class="main__sideBTN">
+              <img src="/public/images/main__sideBtn.svg" alt="Side close" class = 'main__btnsIMG'>
+            </button>
+          </div>
+        </div>
+        <div class="main__main">
+          <nav class="main__navigation">
+            <button class = 'main__navigBtn main__navigBtn_add'>
+              <img src="/public/images/main__addImg.svg" alt="Add goal" class = 'main__addImg'>
+              Добавить задачу
+            </button>
+            <button class = 'main__navigBtn main__goals'>
+              <img src="/public/images/main__calendarImg.svg" alt="Goals" class = 'main__navigImg'>
+              Задачи
+            </button>
+            <div class="calendar calendar_hide">
+              <div class="calendar__title">October 2020</div>
+              <div class="calendar__wrapper">
+                  <div class="calendar__inner">
+                      <span class="calendar__item calendar__item_day">Mon</span>
+                      <span class="calendar__item calendar__item_day">Tue</span>
+                      <span class="calendar__item calendar__item_day">Wed</span>
+                      <span class="calendar__item calendar__item_day">Thu</span>
+                      <span class="calendar__item calendar__item_day">Fri</span>
+                      <span class="calendar__item calendar__item_day">Sat</span>
+                      <span class="calendar__item calendar__item_day">Sun</span>
+                  </div>
+              </div>
+            </div>
+            <button class = 'main__navigBtn'>
+              <img src="/public/images/main__noteImg.svg" alt="Add goal" class = 'main__navigImg'>
+              Заметки
+            </button>
+            <button class = 'main__navigBtn'>
+              <img src="/public/images/main__projectImg.svg" alt="Add goal" class = 'main__navigImg'>
+              Проекты
+            </button>
+
+          </nav>
+        </div>
+      </section>
+      <section class="main__workPart">
+        <section class="notions">
+          <div class="notions__head">
+            <h1>Заметки</h1>
+            <div class="notions__desc">
+              <textarea name="" id="notions__text">Document your life - daily happenings, special occasions, and reflections on your goals.Categorize entries with tags and automatically capture the date.</textarea>
+            </div>
+          </div>
+          <div class="notions__body">
+            <nav class="notions__navig">
+              <button class="notions__navigBtn">Все заметки</button>
+            </nav>
+            <div class="notions__line"></div>
+            <div class="notions__list">
+
+            </div>
+            <button class="notions__add"><img src="/public/images/addTask_img.svg" alt="" class="notions__pls">Add note</button>
+          </div>
+        </section>
+      </section>
+
+    </main>
+
+    <div class="enter enter_hide">
+      <div class="enter__container">
+        <form id="enter__loginForm">
+            <h2>Вход</h2>
+            <div class="input__group">
+                <label for="username" class = 'enter__username'>Логин</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input__group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class = 'enter__btn'>Войти</button>
+            <div id="message" class="enter__message"></div>
+        </form>
+    </div>
+    </div>
+
+
+    
+    <div class="reg reg_hide">
+      <div class="enter__container">
+        <form id="reg__loginForm" class = 'enter__loginForm'>
+            <h2>Регистрация</h2>
+            <div class="input__group">
+                <label for="username" class = 'enter__username'>Логин</label>
+                <input type="text" id="usernameReg" name="username" required>
+            </div>
+            <div class="input__group">
+                <label for="password">Пароль</label>
+                <input type="password" id="passwordReg" name="password" required>
+            </div>
+            <button type="submit" class = 'enter__btn enter__reg'>Зарегистрироваться</button>
+            <div id="reg_message" class="enter__message"></div>
+        </form>
+    </div>
+    </div>
+
+
+    <div class="overlay overlay_hidden">
+      <div class="taskForm">
+        <div class="taskForm__header">
+            <input type="text" id="taskForm_title" placeholder="Название задачи">
+            <textarea id="taskForm_description" placeholder="Описание"></textarea>
+        </div>
+        <div class="taskForm__body">
+          <button class="taskForm__prior">Приоритет</button>
+          <ul class = 'taskForm__priorUl taskForm__priorUl_hidden'>
+            <li>P1 <img src="/public/images/prior_1__flag.svg" alt="" class = 'prior__flag prior__flag_1'></li>
+            <li>P2 <img src="/public/images/prior_2__flag.svg" alt="" class = 'prior__flag prior__flag_2'></li>
+            <li>P3 <img src="/public/images/prior_3__flag.svg" alt="" class = 'prior__flag prior__flag_3'></li>
+            <li>P4 <img src="/public/images/prior_4__flag.svg" alt="" class = 'prior__flag prior__flag_4'></li>
+          </ul>
+          <div class="timeChooseBlock">
+            <label for="time" class = 'timeChoose'>Время: </label>
+            <input type="time" name="time" class = 'timeChoose__input'>
+          </div>
+        </div>
+        <div class="taskForm__footer">
+            <button class="taskForm__btn" id="cancelBtn">Отмена</button>
+            <button class="taskForm__btn taskFormMain__btn_primary" id="addTaskBtn">Добавить задачу</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay_1 overlay_hidden">
+      <div class="taskForm">
+        <div class="taskForm__header">
+            <input type="text" id="taskForm_title" placeholder="Название задачи" class = 'taskFormMain_title'>
+            <textarea id="taskForm_description" placeholder="Описание" class = 'taskFormMain_desc'></textarea>
+        </div>
+        <div class="taskForm__body taskFormMain__body">
+          <button class="taskForm__date"></button>
+          <div class="taskForm__dateModal taskForm__dateModal_hidden">
+            <div class="calendarModal">
+              <div class="calendarModal__title">October 2020</div>
+              <div class="calendarModal__wrapper">
+                  <div class="calendarModal__inner">
+                      <span class="calendarModal__item calendarModal__item_day">Mon</span>
+                      <span class="calendarModal__item calendarModal__item_day">Tue</span>
+                      <span class="calendarModal__item calendarModal__item_day">Wed</span>
+                      <span class="calendarModal__item calendarModal__item_day">Thu</span>
+                      <span class="calendarModal__item calendarModal__item_day">Fri</span>
+                      <span class="calendarModal__item calendarModal__item_day">Sat</span>
+                      <span class="calendarModal__item calendarModal__item_day">Sun</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <button class="taskFormMain__prior"> <img src="/public/images/prior__flag.svg" alt="" class = 'prior__flag'>  Приоритет</button>
+          <ul class = 'taskFormMain__priorUl taskForm__priorUl_hidden'>
+            <li>P1 <img src="/public/images/prior_1__flag.svg" alt="" class = 'prior__flag prior__flag_1'></li>
+            <li>P2 <img src="/public/images/prior_2__flag.svg" alt="" class = 'prior__flag prior__flag_2'></li>
+            <li>P3 <img src="/public/images/prior_3__flag.svg" alt="" class = 'prior__flag prior__flag_3'></li>
+            <li>P4 <img src="/public/images/prior_4__flag.svg" alt="" class = 'prior__flag prior__flag_4'></li>
+          </ul>
+        </div>
+        <div class="taskForm__footer">
+            <button class="taskForm__btn" id="cancelBtnMain">Отмена</button>
+            <button class="taskForm__btn taskForm__btn_primary" id="addTaskBtnMain">Добавить задачу</button>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="/src/js/bootstrap.bundle.min.js" ></script>
+    <script type="module" src="/src/js/index.js"></script>
+  </body>
+</html>
