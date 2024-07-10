@@ -83,11 +83,31 @@
             <div class="notions__line"></div>
             <div class="notions__list">
               <div class="notions__note">
-                <textarea name="" class = 'notions__noteName' readonly>Запишите что-нибудь</textarea>
+                <textarea name="" class = 'notions__noteName' rows="1" readonly>Запишите что-нибудь</textarea>
                 <img src="/public/images/notions__rewrite.svg" alt="Rewrite" class="notions__noteRewriteHide">
               </div>
             </div>
             <button class="notions__add"><img src="/public/images/addTask_img.svg" alt="" class="notions__pls">Add note</button>
+          </div>
+
+          <div class="notionText">
+            <div class="notionText__control">
+              <button class = 'notionText__CloseBtn'><img src="/public/images/addTask_img.svg" alt="Close" class = 'notionText__closeImg'></button>
+            </div>
+            <div class="notionText__cont">
+              <div class="notionText__head">
+                Запишите что-нибудь
+              </div>
+              <div class="notionText__createDate">
+                <div class="notionText__create">
+                  Создано
+                </div>
+                <div class="notionText__date">
+                  10.07.2024
+                </div>
+              </div>
+              <textarea name="" class="notionText__text" rows = '1' placeholder="Добавить текст"></textarea>
+            </div>
           </div>
         </section>
       </section>
@@ -137,7 +157,7 @@
       <div class="taskForm">
         <div class="taskForm__header">
             <input type="text" id="taskForm_title" placeholder="Название задачи">
-            <textarea id="taskForm_description" placeholder="Описание"></textarea>
+            <textarea id="taskForm_description" placeholder="Описание" rows="1"></textarea>
         </div>
         <div class="taskForm__body">
           <button class="taskForm__prior">Приоритет</button>
@@ -163,7 +183,7 @@
       <div class="taskForm">
         <div class="taskForm__header">
             <input type="text" id="taskForm_title" placeholder="Название задачи" class = 'taskFormMain_title'>
-            <textarea id="taskForm_description" placeholder="Описание" class = 'taskFormMain_desc'></textarea>
+            <textarea id="taskForm_description" placeholder="Описание" class = 'taskFormMain_desc' rows="1"></textarea>
         </div>
         <div class="taskForm__body taskFormMain__body">
           <button class="taskForm__date"></button>

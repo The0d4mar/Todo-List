@@ -7,6 +7,7 @@ body{
   font-family: var(--font);
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 img{
   height: 20px;
@@ -1221,6 +1222,8 @@ h2 {
 .notions__note{
   display: flex;
   align-items: center;
+  position: relative;
+  width: auto;
 }
 .notions__noteName{
   border: none;
@@ -1229,7 +1232,7 @@ h2 {
   }
   padding: 0;
   margin: 0;
-  max-height: 20px;
+  width: auto;
 }
 .notions__noteRewriteHide{
   animation: noteImgHide 1 cubic-bezier(0,-0.09, 0, 0.98);
@@ -1256,4 +1259,86 @@ h2 {
   to{
     opacity: 1;
   }
+}
+
+.notionText{
+  border: 1px solid black;
+  border-radius: 3px 0 0 3px;
+  border-right: none;
+  z-index: 30;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+  height: 100vh;
+  min-width: 500px;
+  padding: 0;
+  transform: translateX(100vw);
+  display: none;
+
+}
+.notionText__cont{
+  padding: 10px 20px 10px 30px;
+}
+.notionText__head{
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.notionText__createDate{
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+.notionText__create{
+  margin-right: 20px;
+}
+
+.notionText__text{
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  &:focus{
+    outline: none;
+  }
+}
+.notionText__control{
+  padding: 5px;
+}
+.notionText__CloseBtn{
+  padding: 0;
+  border: none;
+  background-color: transparent;
+
+}
+.notionText__closeImg{
+  transform: rotate(45deg);
+}
+@keyframes NotionTextHide {
+  0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(100vw);
+}
+  
+}
+@keyframes NotionTextShow {
+  0% {
+    transform: translateX(40vw);
+}
+100% {
+    transform: translateX(0);
+}
+  
+}
+
+.notionText_hide{
+  animation: NotionTextHide .5s ease-in forwards;
+
+}
+.notionText_show{
+  animation: NotionTextShow .5s ease-in forwards;
+  display:  block !important;
 }

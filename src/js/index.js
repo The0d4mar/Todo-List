@@ -2,6 +2,21 @@ import { createPopper } from '@popperjs/core';
 import '../scss/style.scss'
 import Sortable from 'sortablejs';
 
+document.addEventListener('DOMContentLoaded', function() {
+  const textarea = document.querySelector('.notions__noteName');
+
+  textarea.addEventListener('input', function() {
+      textarea.style.height = 'auto'; // сбрасываем высоту
+      textarea.style.height = textarea.scrollHeight + 'px'; // устанавливаем высоту по содержимому
+  });
+  document.getElementById('taskForm_description').addEventListener('input', function() {
+    document.getElementById('taskForm_description').style.height = 'auto'; // сбрасываем высоту
+    document.getElementById('taskForm_description').style.height = document.getElementById('taskForm_description').scrollHeight + 'px'; // устанавливаем высоту по содержимому
+});
+});
+
+
+
 function getDaysInMonth(months) {
     const currentDate = new Date();
     const actualDay = currentDate.getUTCDate();
@@ -227,6 +242,10 @@ function GoalsMenuMain(event, dayWork){
         `;
         }
         mainPart.append(info);
+        document.querySelector('.checklistInfo__body').addEventListener('input', function() {
+          textarea.style.height = 'auto'; // сбрасываем высоту
+          textarea.style.height = textarea.scrollHeight + 'px'; // устанавливаем высоту по содержимому
+        });
         document.querySelector('.checklistInfo__closeBtn').addEventListener('click', function(){
           taskRepsy[dayWork][+num][1] = document.querySelector('.checklistInfo__body').value;
           info.remove();
@@ -780,11 +799,33 @@ noteImg.addEventListener('click', function(event){
   noteName.focus();
 })
 
-if(!noteName.focus()){
-  noteName.setAttribute('readonly');
-}
 
-notionBtn.addEventListener('clicl', function(event){
-  const note = document.createElement('div');
-  
+noteName.addEventListener('keydown', function(event){
+  if(event.key == 'Enter'){
+    noteName.setAttribute('readonly', true);
+    let name = event.value;
+    let len = name.length;
+    event.value = name.slice(0, len);
+  }
+})
+let showNotionTextFlag = 0;
+noteName.addEventListener('click', function(event){
+  if(noteName.hasAttribute('readonly') && showNotionTextFlag == 0){
+    document.querySelector('.notionText').classList.add('notionText_show');
+    document.querySelector('.notionText').addEventListener('animationend', function() {
+      document.querySelector('.notionText').style.transform = 'none';
+      document.querySelector('.notionText').style.display = 'block'; // делаем невидимым
+      document.querySelector('.notionText').classList.remove('notionText_show');
+      showNotionTextFlag = 1;
+  });
+}
+})
+
+document.querySelector('.notionText__CloseBtn').addEventListener('click', function(){
+  document.querySelector('.notionText').classList.add('notionText_hide');
+  document.querySelector('.notionText').addEventListener('animationend', function() {
+    document.querySelector('.notionText').style.display = 'none'; // делаем невидимым
+    document.querySelector('.notionText').classList.remove('notionText_hide');
+    showNotionTextFlag = 0;
+});
 })
