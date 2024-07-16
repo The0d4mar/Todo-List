@@ -3,7 +3,7 @@ import '../scss/style.scss'
 import Sortable from 'sortablejs';
 
 document.addEventListener('DOMContentLoaded', function() {
-  const textarea = document.querySelector('.notions__noteName');
+  const textarea = document.getElementsByClassName('notions__noteName');
 
   textarea.addEventListener('input', function() {
       textarea.style.height = 'auto'; // сбрасываем высоту
@@ -399,7 +399,7 @@ const dateModal = document.querySelector('.taskForm__dateModal');
 const maintaskadd = document.querySelector('#addTaskBtnMain');
 const mainPage = document.querySelector('.main');
 
-
+let pageFlag = 0;
 
 const loginform = document.getElementById('enter__loginForm');
 
@@ -718,7 +718,9 @@ maintaskadd.addEventListener('click', function(){
 
 
 goals.addEventListener('click', function(event){
-  if(accountEnter.textContent != 'Войти'){
+  if(accountEnter.textContent != 'Войти' && pageFlag!= 1){
+    mainPart.innerHTML = '';
+    pageFlag = 1;
       if (calendar.classList[1] == 'calendar_hide') {
           calendar.classList.remove('calendar_hide');
           calendar.style.transition = 'height 1s';
@@ -776,56 +778,220 @@ cancelBtn.addEventListener('click', function(){
     document.getElementById('taskForm_description').value ='';
     priorBtn.innerHTML = `Приоритет`
 })
-
-
-
-let usersNote = new Object();
-let notes = new Object();
-
-const notionBtn = document.querySelector('.notions__add');
-const notionList = document.querySelector('.notions__list');
-const note = document.querySelector('.notions__note');
-const noteName = document.querySelector('.notions__noteName');
-const noteImg = document.querySelector('.notions__noteRewriteHide');
-
-
-note.onmouseover = note.onmouseout = HideNoteImg;
- function HideNoteImg(){
-  noteImg.classList.toggle('notions__noteRewriteHide')
-  noteImg.classList.toggle('notions__noteRewrite')
-}
-noteImg.addEventListener('click', function(event){
-  noteName.removeAttribute('readonly');
-  noteName.focus();
-})
-
-
-noteName.addEventListener('keydown', function(event){
-  if(event.key == 'Enter'){
-    noteName.setAttribute('readonly', true);
-    let name = event.value;
-    let len = name.length;
-    event.value = name.slice(0, len);
+let usersNote = {
+  1:{
+    1: ['Привет, я заметка!', 'Начни писать здесь', '12.07.2024'],
   }
-})
-let showNotionTextFlag = 0;
-noteName.addEventListener('click', function(event){
-  if(noteName.hasAttribute('readonly') && showNotionTextFlag == 0){
-    document.querySelector('.notionText').classList.add('notionText_show');
-    document.querySelector('.notionText').addEventListener('animationend', function() {
-      document.querySelector('.notionText').style.transform = 'none';
-      document.querySelector('.notionText').style.display = 'block'; // делаем невидимым
-      document.querySelector('.notionText').classList.remove('notionText_show');
-      showNotionTextFlag = 1;
-  });
+};
+let notes;
+
+
+const notePageBtn = document.querySelector('.main__noteBtn');
+
+
+
+function notePageRender(){
+  notes = usersNote[actualusername];
+  const notionList = document.querySelector('.notions__list');
+      for(let note in notes){
+        let idEl = note;
+        let info = notes[idEl];
+        let textareaNote = document.createElement('textarea');
+        textareaNote.setAttribute('readonly', true);
+        textareaNote.id = `textarea_${idEl}`;
+        textareaNote.classList.add('notions__noteName');
+        textareaNote.innerHTML = info[0];
+        textareaNote.style.rows = 1;
+        let noteBlock = document.createElement('div');
+        noteBlock.classList.add('notions__note');
+        noteBlock.id = `note_${idEl}`;
+        noteBlock.append(textareaNote);
+        let imgBlock = document.createElement('img')
+        imgBlock.classList.add('notions__noteRewriteHide')
+        imgBlock.src = '/public/images/notions__rewrite.svg';
+        imgBlock.id = `img_${idEl}`;
+        noteBlock.append(imgBlock);
+        notionList.append(noteBlock);
+      }
 }
+notePageBtn.addEventListener('click', function(event){
+  console.log(actualusername);
+  if(pageFlag!=2){
+    pageFlag = 2;
+    mainPart.innerHTML = '';
+    const noteSection = document.createElement('section')
+    noteSection.classList.add('notions')
+    noteSection.innerHTML = `
+    <div class="notions__head">
+            <h1>Заметки</h1>
+            <div class="notions__desc">
+              <textarea name="" id="notions__text">Document your life - daily happenings, special occasions, and reflections on your goals.Categorize entries with tags and automatically capture the date.</textarea>
+            </div>
+          </div>
+          <div class="notions__body">
+            <nav class="notions__navig">
+              <button class="notions__navigBtn">Все заметки</button>
+            </nav>
+            <div class="notions__line"></div>
+            <div class="notions__list">
+              <div class="notions__note" id = 'note0'>
+                <textarea name="" class = 'notions__noteName' rows="1" id = 'textarea_0'readonly>Запишите что-нибудь</textarea>
+                <img src="/public/images/notions__rewrite.svg" alt="Rewrite" class="notions__noteRewriteHide" id = 'img_0'>
+              </div>
+            </div>
+            <button class="notions__add"><img src="/public/images/addTask_img.svg" alt="" class="notions__pls">Add note</button>
+          </div>
+
+          <div class="notionText">
+            <div class="notionText__control">
+              <button class = 'notionText__CloseBtn'><img src="/public/images/addTask_img.svg" alt="Close" class = 'notionText__closeImg'></button>
+            </div>
+            <div class="notionText__cont">
+              <div class="notionText__head">
+              </div>
+              <div class="notionText__createDate">
+                <div class="notionText__create">
+                  Создано
+                </div>
+                <div class="notionText__date">
+                </div>
+              </div>
+              <textarea name="" class="notionText__text" rows = '1' placeholder="Добавить текст"></textarea>
+            </div>
+          </div>
+    `;
+    mainPart.append(noteSection);
+    mainPart.addEventListener('mouseover',function(event){
+      const target = event.target.closest('.notions__note');
+      const targetImg = target.lastElementChild;
+      targetImg.classList.remove('notions__noteRewriteHide')
+      targetImg.classList.add('notions__noteRewrite')
+    })
+    mainPart.addEventListener('mouseout',function(event){
+      const target = event.target.closest('.notions__note');
+      const targetImg = target.lastElementChild;
+      targetImg.classList.add('notions__noteRewriteHide')
+      targetImg.classList.remove('notions__noteRewrite')
+    })
+    const notionBtn = document.querySelector('.notions__add');
+    const note = document.getElementsByClassName('notions__note');
+    const noteName = document.querySelector('.notions__noteName');
+    const noteRewrite = document.getElementsByClassName('notion__rewriteBtn');
+
+    if(Object.keys(usersNote).indexOf(actualusername) == -1){
+      usersNote[actualusername] = new Array();
+      notes = usersNote[actualusername];
+    } else{
+      notePageRender();
+      notes = usersNote[actualusername];
+      
+    }
+    mainPart.addEventListener('click', function(event){
+      if(event.target.closest('.notions__noteRewrite')){
+        let eventParent = event.target.previousElementSibling;
+        eventParent.removeAttribute('readonly');
+        eventParent.focus();
+        eventParent.addEventListener('keydown', function(event){
+          if(event.key == 'Enter'){
+            eventParent.setAttribute('readonly', true);
+            let name = eventParent.value;
+            event.value = name.substring(0, name.length - 1);
+            let eventId = eventParent.id.split('_')[1];
+            let noteInfo = notes[eventId];
+            noteInfo[0] = name.substring(0, name.length - 1);
+            notes[eventId] = noteInfo;
+            usersNote[actualusername] = notes;
+
+          }
+        })
+      }
+      else if(event.target.closest('.notions__noteName')){
+        let locnoteName = event.target.closest('.notions__noteName');
+        if(locnoteName.hasAttribute('readonly') && showNotionTextFlag == 0){
+          let noteID = locnoteName.id.split('_')[1];
+          const notionText = document.querySelector('.notionText');
+          const notionText_head = document.querySelector('.notionText__head');
+          const notionText__date = document.querySelector('.notionText__date');
+          const notionText__text = document.querySelector('.notionText__text');
+          notionText.id = locnoteName.id.split('_')[1];
+          notionText_head.innerHTML = locnoteName.value;
+          notionText__date.innerHTML = notes[noteID][2];
+          notionText__text.innerHTML = notes[noteID][1];
+          document.querySelector('.notionText').classList.add('notionText_show');
+          document.querySelector('.notionText').addEventListener('animationend', function() {
+            document.querySelector('.notionText').style.transform = 'none';
+            document.querySelector('.notionText').style.display = 'block'; // делаем невидимым
+            document.querySelector('.notionText').classList.remove('notionText_show');
+            showNotionTextFlag = 1;
+        });
+      }
+      }
+    })
+    let showNotionTextFlag = 0;
+    noteName.addEventListener('click', function(event){
+      if(noteName.hasAttribute('readonly') && showNotionTextFlag == 0){
+        document.querySelector('.notionText').classList.add('notionText_show');
+        document.querySelector('.notionText').addEventListener('animationend', function() {
+          document.querySelector('.notionText').style.transform = 'none';
+          document.querySelector('.notionText').style.display = 'block'; // делаем невидимым
+          document.querySelector('.notionText').classList.remove('notionText_show');
+
+          
+      });
+    }
+    })
+
+    document.querySelector('.notionText__CloseBtn').addEventListener('click', function(){
+      document.querySelector('.notionText').classList.add('notionText_hide');
+      document.querySelector('.notionText').addEventListener('animationend', function() {
+        document.querySelector('.notionText').style.display = 'none'; // делаем невидимым
+        document.querySelector('.notionText').classList.remove('notionText_hide');
+        showNotionTextFlag = 0;
+        let numbe = document.querySelector('.notionText').id;
+        let noteInfo = notes[numbe];
+        noteInfo[1] = document.querySelector('.notionText__text').value;
+        notes[numbe] = noteInfo;
+        usersNote[actualusername] = notes;
+    });
+    })
+
+
+    notionBtn.addEventListener('click', function(event){
+      let newId;
+      const noteLists = Object.keys(usersNote[actualusername]);
+      if(Math.max(...noteLists)+1 == Infinity ||Math.max(...noteLists)+1 == -Infinity){
+        newId = 1;
+      } else {
+        newId = Math.max(...noteLists)+1;
+      }
+      console.log(newId);
+      let textareaNote = document.createElement('textarea');
+      textareaNote.classList.add('notions__noteName');
+      textareaNote.value = 'Привет, я заметка!'
+      textareaNote.style.rows = 1;
+      let noteBlock = document.createElement('div');
+      noteBlock.classList.add('notions__note');
+      noteBlock.id = `note_${newId}`;
+      noteBlock.append(textareaNote);
+      let imgBlock = document.createElement('img')
+      imgBlock.classList.add('notions__noteRewriteHide')
+      imgBlock.src = '/public/images/addTask_img.svg';
+      noteBlock.append(imgBlock);
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0');
+      let yyyy = today.getFullYear();
+
+      today = dd + '/' + mm + '/' + yyyy;
+      noteLists[newId] = ['Привет, я заметка!', 'Начни писать здесь', today];
+      const notionList = document.querySelector('.notions__list');
+      const rows = notionList.style.gridTemplateRows.split(' ');
+      rows.push('50px');
+      notionList.style.gridTemplateRows = rows.join(' ');
+      notePageRender();
+    })
+
+  }
+  
 })
 
-document.querySelector('.notionText__CloseBtn').addEventListener('click', function(){
-  document.querySelector('.notionText').classList.add('notionText_hide');
-  document.querySelector('.notionText').addEventListener('animationend', function() {
-    document.querySelector('.notionText').style.display = 'none'; // делаем невидимым
-    document.querySelector('.notionText').classList.remove('notionText_hide');
-    showNotionTextFlag = 0;
-});
-})

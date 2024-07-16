@@ -96,7 +96,7 @@ main{
 .main__sidenav__bk_2{
   position: absolute;
   top: 0;
-  animation: bk_change .5s ease-in, hiding .5s ease-in;
+  animation: bk_change .5s ease-in forwards, hiding .5s ease-in;
   background-color: transparent;
   transform: translateX(-80%);
 }
@@ -802,9 +802,6 @@ textarea{
   color: black;
   text-align: start;
 }
-.taskFormMain__prior{
-  
-}
 
 .taskForm__priorUl{
   font-family: var(--font);
@@ -1216,12 +1213,15 @@ h2 {
 .notions__list{
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: repeat(50px, 2);
   grid-row-gap: 10px;
+  align-items: center;
   padding-top: 10px;
 }
 .notions__note{
+  padding: 5px 0 5px 0;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   position: relative;
   width: auto;
 }
@@ -1235,22 +1235,23 @@ h2 {
   width: auto;
 }
 .notions__noteRewriteHide{
-  animation: noteImgHide 1 cubic-bezier(0,-0.09, 0, 0.98);
+  z-index: 40;
+  animation: noteImgHide 1 cubic-bezier(0,-0.09, 0, 0.98) forwards;
   display: none;
-  opacity: 0;
+
 }
 @keyframes noteImgHide {
   from{
-    opacity: 1;
+    opacity: 0.85;
   }
   to{
     opacity: 0;
   }
 }
 .notions__noteRewrite{
-  animation: noteImgShow 1 cubic-bezier(0,-0.09, 0, 0.98);
+  z-index: 40;
+  animation: noteImgShow 1 cubic-bezier(0,-0.09, 0, 0.98) forwards;
   display: block;
-  opacity: 1;
 }
 @keyframes noteImgShow {
   from{
@@ -1341,4 +1342,12 @@ h2 {
 .notionText_show{
   animation: NotionTextShow .5s ease-in forwards;
   display:  block !important;
+}
+
+#hiddenSizer {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
